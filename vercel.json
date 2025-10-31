@@ -6,11 +6,5 @@
   "rewrites": [
     { "source": "/dallas/massage/bruno", "destination": "/index.html" },
     { "source": "/dallas/massage/bruno/:path*", "destination": "/:path*" }
-  ],
-  "functions": {
-    "api/*.js": {
-      "memory": 256,
-      "maxDuration": 10
-    }
-  }
+  ]
 }
