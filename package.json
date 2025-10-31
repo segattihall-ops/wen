@@ -2,12 +2,10 @@
   "name": "bruno-santos-massage-website",
   "version": "1.0.0",
   "description": "Professional portfolio website for Bruno Santos, a licensed massage therapist in Dallas, TX.",
-  "main": "index.html",
   "scripts": {
-  "start": "serve",
-  "dev": "vercel dev",
+    "dev": "vercel dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-  "deploy:vercel": "vercel --prod"
+    "deploy:vercel": "vercel --prod"
   },
   "repository": {
     "type": "git",
