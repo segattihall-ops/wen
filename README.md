@@ -83,18 +83,120 @@ If you are using Git, you can easily deploy to GitHub Pages.
 To run the website locally, you can use a simple HTTP server. If you have Python installed, you can run the following command from the `bruno-santos-website` directory:
 
 ```bash
-# For Python 3
-python -m http.server
-```
+# Bruno Santos — Website
 
-This will start a local server, and you can view the site at `http://localhost:8000` in your browser.
+This repository contains Bruno Santos' single-page website and a small serverless API for an AI chat assistant.
 
-Alternatively, you can use the `serve` package from npm:
+## Quick overview
+- Static site: `index.html`, CSS inlined.
+- Serverless API: `api/chat.js` — proxies chat requests to OpenAI. Uses `OPENAI_API_KEY` environment variable.
+- Deployment target: Vercel (recommended). `vercel.json` rewrites the site to `/dallas/massage/bruno`.
+
+## Prerequisites
+- Node.js 18+ (recommended)
+- npm
+- Vercel CLI (for local dev or CLI deploy): `npm i -g vercel`
+
+## Local development
+1. Install dev dependencies (if you need the static server):
 
 ```bash
-npm install -g serve
-serve .
+npm ci
 ```
 
-This will also start a local server, typically at `http://localhost:3000`.
-'''
+2. Recommended: run Vercel's local dev which emulates Serverless Functions and rewrites:
+
+```bash
+vercel dev
+```
+
+This starts a local server and exposes `/api/*` routes like Vercel will in production.
+
+If you prefer a simple static server for quick previews (no serverless functions), you can run:
+
+```bash
+npm start
+# or
+npx serve .
+```
+
+Note: `npm run dev` now runs `vercel dev` (if you have the Vercel CLI installed).
+
+## Environment variables (Vercel)
+Set these in your Vercel Project Settings > Environment Variables:
+- `OPENAI_API_KEY` — **required**. Never commit this value.
+- Optional overrides:
+    - `OPENAI_MODEL` (default: `gpt-3.5-turbo`)
+    - `OPENAI_MAX_TOKENS` (default: `500`)
+    - `OPENAI_TEMPERATURE` (default: `0.6`)
+
+## Deploy to Vercel (from CLI)
+If you have Vercel CLI and credentials configured:
+
+```bash
+# one-time login
+vercel login
+
+# dev (local emulation)
+vercel dev
+
+# production deploy
+vercel --prod
+# or via npm script
+npm run deploy:vercel
+```
+
+## Hosting at /dallas/massage/bruno
+A `vercel.json` is included with rewrites so the site is available at `/dallas/massage/bruno`:
+```json
+{
+    "rewrites": [
+        { "source": "/dallas/massage/bruno", "destination": "/index.html" },
+        { "source": "/dallas/massage/bruno/:path*", "destination": "/:path*" }
+    ]
+}
+```
+
+## Security: rotating exposed API keys & removing from git
+If an OpenAI API key was ever committed, rotate it immediately in the OpenAI dashboard.
+
+To remove a secret from git history consider one of these safe approaches:
+
+1) Using `git filter-repo` (recommended):
+
+```bash
+# install (once)
+pip install git-filter-repo
+
+# example: remove the string SK-SECRET from the whole history
+# create a file "replacements.txt" with lines like: SK-OLD-KEY==>REDACTED
+# then run:
+git filter-repo --replace-text replacements.txt
+
+# force-push rewritten history to origin (warning: destructive)
+git push --force --all
+```
+
+2) Using BFG Repo Cleaner (easier):
+
+```bash
+# example: remove all text matching the secret
+bfg --replace-text replacements.txt
+# then follow BFG instructions to clean and force-push
+```
+
+If you want me to rewrite history here, I can prepare and run the exact commands — but note this rewrites commits and requires coordination with any collaborators.
+
+## Monitoring & cost controls
+- `api/chat.js` includes simple per-IP rate limiting and logs token usage to `chat-usage.log`.
+- To reduce cost, lower `OPENAI_MAX_TOKENS`, or use a cheaper model via `OPENAI_MODEL`.
+
+## Need help?
+If you'd like, I can:
+- Trigger a production deploy now (`vercel --prod`) — I will only run it if you confirm your Vercel credentials are available in this environment.
+- Walk through rotating an exposed key and (optionally) rewriting git history to purge it.
+- Add a short `README` section showing how to set Vercel environment variables via the Vercel dashboard.
+
+
+---
+Generated: October 31, 2025
