@@ -1,0 +1,35 @@
+{
+  "name": "bruno-santos-massage-website",
+  "version": "1.0.0",
+  "description": "Professional portfolio website for Bruno Santos, a licensed massage therapist in Dallas, TX.",
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:vercel": "vercel --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/example/bruno-santos-website.git"
+  },
+  "keywords": [
+    "gay",
+    "massage",
+    "dallas",
+    "lgbtq",
+    "therapist",
+    "M4M",
+    "M2M"
+  ],
+  "author": "Bruno Santos",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/example/bruno-santos-website/issues"
+  },
+  "homepage": "https://www.masseurmatch.com/dallas/massage/brunosantos",
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "api/*.js", "use": "@vercel/node" }
+  ],
+  "rewrites": [
+    { "source": "/dallas/massage/bruno", "destination": "/index.html" },
+    { "source": "/dallas/massage/bruno/:path*", "destination": "/:path*" }
+  ]
+}
