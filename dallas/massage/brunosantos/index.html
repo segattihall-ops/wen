@@ -21,8 +21,8 @@
         <!-- Preload hero image -->
         <link rel="preload" as="image" href="images/hero-outdoor.jpg">
 
-        <!-- Favicon -->
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <!-- Favicon (use repo root favicon) -->
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 
         <script type="application/ld+json">
         {
@@ -822,7 +822,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="/" class="logo">BRUNO SANTOS</a>
+                <a href="index.html" class="logo">BRUNO SANTOS</a>
                 
                 <button class="menu-toggle" onclick="toggleMenu()">☰</button>
                 
@@ -1399,7 +1399,7 @@
         }
 
         function addAgreeTerms() {
-            addMessage('Almost done! Please confirm you agree to our <a href="/terms.html">Terms</a> & <a href="/privacy.html">Privacy Policy</a>.');
+            addMessage('Almost done! Please confirm you agree to our <a href="terms.html">Terms</a> & <a href="privacy.html">Privacy Policy</a>.');
             const btn = document.createElement('button');
             btn.textContent = "✅ I Agree";
             btn.onclick = () => { addMessage("✅ I Agree", true); stage = 7; processAI("agree"); };
